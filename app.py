@@ -2,6 +2,7 @@ import streamlit as st
 import pandas as pd
 import numpy as np
 import pickle
+import joblib
 import plotly.express as px
 
 st.set_page_config(page_title="AI Travel Analyst", layout="wide", page_icon="✈️")
@@ -12,8 +13,7 @@ st.divider()
 
 @st.cache_resource
 def load_artifacts():
-    with open('model_artifacts/flight_model.pkl', 'rb') as f:
-        model = pickle.load(f)
+    model = joblib.load('model_artifacts/flight_model.pkl.gz')
     with open('model_artifacts/feature_columns.pkl', 'rb') as f:
         features = pickle.load(f)
     return model, features
